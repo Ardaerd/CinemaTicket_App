@@ -5,5 +5,5 @@ public class Customer {
     private String lastName;
     private ArrayList<Ticket> prevTicket;
 
-    
+
 }
