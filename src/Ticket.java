@@ -6,7 +6,6 @@ public class Ticket {
 
     public Ticket(Movie movie) {
         this.movie = movie;
-        totalPrice = adultCount * 20 + childrenCount * 10;
     }
 
     public String toString() {
@@ -31,6 +30,10 @@ public class Ticket {
 
     public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setTotalPrice() {
+        totalPrice = adultCount * 20 + childrenCount * 10;
     }
 
     public void setAdultCount(int adultCount) {

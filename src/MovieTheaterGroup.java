@@ -57,10 +57,11 @@ public class MovieTheaterGroup {
         listOfCustomer.add(customer);
     }
 
-    public void openBranch(String str) {
+    public Branch openBranch(String str) {
         Branch newBranch = new Branch(str);
-
         listOfBranch.add(newBranch);
+
+        return newBranch;
     }
 
     public void listBranches() {

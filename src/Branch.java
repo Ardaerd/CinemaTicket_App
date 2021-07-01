@@ -13,6 +13,7 @@ public class Branch {
 
     public void listMovies() {
 
+        System.out.println("Movies playing at branch " + nameOfBranch + ": ");
         for (Movie movie : listOfMovie) {
             System.out.println((listOfMovie.indexOf(movie)+1) + ". " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")");
         }
