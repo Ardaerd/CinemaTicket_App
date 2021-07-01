@@ -17,7 +17,7 @@ public class Customer {
         ticket.setAdultCount(adultCount);
         ticket.setChildrenCount(childrenCount);
 
-        branch.getPrevTicket().add(ticket);
+        branch.addTicket(ticket);
         prevTickets.add(ticket);
         System.out.println(ticket);
     }

@@ -11,6 +11,26 @@ public class Branch {
         prevTicket = new ArrayList<>();
     }
 
+    public void listMovies() {
+
+        for (Movie movie : listOfMovie) {
+            System.out.println((listOfMovie.indexOf(movie)+1) + ". " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")");
+        }
+
+    }
+
+    public void addTicket(Ticket ticket) {
+        prevTicket.add(ticket);
+    }
+
+    public void addMovie(Movie movie) {
+        listOfMovie.add(movie);
+    }
+
+    public void removeMovie(Movie movie) {
+        listOfMovie.remove(movie);
+    }
+
     public String getNameOfBranch() {
         return nameOfBranch;
     }
@@ -23,3 +43,4 @@ public class Branch {
         return prevTicket;
     }
 }
+
