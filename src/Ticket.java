@@ -10,10 +10,10 @@ public class Ticket {
     }
 
     public String toString() {
-        String str = "Total price is " + totalPrice + " TL\n" +
-                "Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
-                adultCount + " adults and " + childrenCount + " children\n";
-        
+        String str = "Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
+                adultCount + " adults and " + childrenCount + " children\n" +
+                "Total price is " + totalPrice + " TL\n";
+
         return  str;
     }
 
