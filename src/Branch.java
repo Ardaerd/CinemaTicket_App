@@ -10,4 +10,16 @@ public class Branch {
         listOfMovie = new ArrayList<>();
         prevTicket = new ArrayList<>();
     }
+
+    public String getNameOfBranch() {
+        return nameOfBranch;
+    }
+
+    public ArrayList<Movie> getListOfMovie() {
+        return listOfMovie;
+    }
+
+    public ArrayList<Ticket> getPrevTicket() {
+        return prevTicket;
+    }
 }
