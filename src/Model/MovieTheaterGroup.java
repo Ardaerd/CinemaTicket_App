@@ -1,3 +1,9 @@
+package Model;
+
+import Model.Branch;
+import Model.Customer;
+import Model.Movie;
+
 import java.util.ArrayList;
 
 public class MovieTheaterGroup {

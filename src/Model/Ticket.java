@@ -1,3 +1,7 @@
+package Model;
+
+import Model.Movie;
+
 public class Ticket {
     private int adultCount;
     private int childrenCount;
@@ -9,7 +13,7 @@ public class Ticket {
     }
 
     public String toString() {
-        String str = "Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
+        String str = "Model.Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
                 adultCount + " adults and " + childrenCount + " children\n" +
                 "Total price is " + totalPrice + " TL\n";
 

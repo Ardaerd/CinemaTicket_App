@@ -1,3 +1,5 @@
+package Model;
+
 public class Movie {
     private String nameOfMovie;
     private String genre;

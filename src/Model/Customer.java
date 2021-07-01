@@ -1,3 +1,7 @@
+package Model;
+
+import Model.Branch;
+
 import java.util.ArrayList;
 
 public class Customer {
