@@ -9,6 +9,14 @@ public class Ticket {
         totalPrice = adultCount * 20 + childrenCount * 10;
     }
 
+    public String toString() {
+        String str = "Total price is " + totalPrice + " TL\n" +
+                "Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
+                adultCount + " adults and " + childrenCount + " children\n";
+        
+        return  str;
+    }
+
     public int getAdultCount() {
         return adultCount;
     }
