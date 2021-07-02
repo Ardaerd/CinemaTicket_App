@@ -4,6 +4,7 @@ import Model.Branch;
 import Model.Customer;
 import Model.Movie;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class MovieTheaterGroup {
@@ -16,6 +17,13 @@ public class MovieTheaterGroup {
         this.nameOfGroup = nameOfGroup;
         listOfBranch = new ArrayList<>();
         listOfCustomer = new ArrayList<>();
+        initBranches();
+    }
+
+    public void initBranches() {
+        openBranch("Ataşehir");
+        openBranch("Taksim");
+        openBranch("Levent");
     }
 
     public void calculateBranchRevenue(Branch branch, Movie movie) {
@@ -67,6 +75,7 @@ public class MovieTheaterGroup {
         Branch newBranch = new Branch(str);
         listOfBranch.add(newBranch);
 
+
         return newBranch;
     }
 
@@ -75,5 +84,17 @@ public class MovieTheaterGroup {
         for (Branch branch : listOfBranch) {
             System.out.println((listOfBranch.indexOf(branch)+1) + ". " + branch.getNameOfBranch());
         }
+    }
+
+    public String getNameOfGroup() {
+        return nameOfGroup;
+    }
+
+    public ArrayList<Branch> getListOfBranch() {
+        return listOfBranch;
+    }
+
+    public ArrayList<Customer> getListOfCustomer() {
+        return listOfCustomer;
     }
 }
