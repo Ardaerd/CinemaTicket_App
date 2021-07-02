@@ -15,12 +15,10 @@ public class NewCustomer_Panel extends JPanel {
     private GridBagConstraints gbc;
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel addCustomer_Panel;
-    private TicketPanel ticketPanel;
 
     public NewCustomer_Panel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing components of the newCustomer_Panel
         addCustomer_Panel = new JPanel();
-        ticketPanel = new TicketPanel();
         firstNameLabel = new JLabel("First Name: ");
         lastNameLabel = new JLabel("Last Name: ");
         firstName = new JTextField();
@@ -68,10 +66,10 @@ public class NewCustomer_Panel extends JPanel {
                 if (e.getSource() instanceof JButton) {
                     movieTheaterGroup.addCustomer(new Customer(firstName.getText(),lastName.getText()));
                     JOptionPane.showMessageDialog(null,firstName.getText().toUpperCase() + " " + lastName.getText().toUpperCase() + " is added", "Customer",JOptionPane.INFORMATION_MESSAGE);
-                    remove(addCustomer_Panel);
-                    add(ticketPanel);
-                    revalidate();
-                    repaint();
+                    CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
+                    CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
+                    CinemaTicket_GUI.mainPanel.revalidate();
+                    CinemaTicket_GUI.mainPanel.repaint();
                 }
             }
         });

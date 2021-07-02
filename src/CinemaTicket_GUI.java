@@ -9,11 +9,12 @@ import java.awt.event.ActionListener;
 public class CinemaTicket_GUI extends JPanel {
     private JButton newCustomer;
     private JButton existingCustomer;
-    private TicketPanel ticketPanel;
+    public static JPanel mainPanel;
+    public static TicketPanel ticketPanel;
     private JTabbedPane tabPanel;
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel buttonPanel;
-    private NewCustomer_Panel newCustomer_Panel;
+    public static NewCustomer_Panel newCustomer_Panel;
 
     public CinemaTicket_GUI() {
         // Initializing components
@@ -24,6 +25,7 @@ public class CinemaTicket_GUI extends JPanel {
         existingCustomer = new JButton("Existing Customer");
         buttonPanel = new JPanel();
         newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
+        mainPanel = new JPanel();
 
         // Adding components to the buttonPanel
         buttonPanel.add(newCustomer);
@@ -34,10 +36,10 @@ public class CinemaTicket_GUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
-                    tabPanel.remove(buttonPanel);
-                    tabPanel.addTab("Ticket",newCustomer_Panel);
-                    tabPanel.repaint();
-                    tabPanel.revalidate();
+                    mainPanel.remove(buttonPanel);
+                    mainPanel.add(newCustomer_Panel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
                 }
             }
         });
@@ -45,10 +47,13 @@ public class CinemaTicket_GUI extends JPanel {
         // Setting size
         tabPanel.setPreferredSize(new Dimension(main.WIDTH-20,main.HEIGHT-50));
 
-        // Adding branch to the tab from the branch class
-        tabPanel.addTab("Ticket",buttonPanel);
+        // Adding tab for buying ticket and displaying Movie theater group information
+        tabPanel.addTab("Ticket",mainPanel);
 
-        // Adding components to the this panel
+        // Adding components to the mainPanel
+        mainPanel.add(buttonPanel);
+
+        // Adding to the this panel
         add(tabPanel);
     }
 }

@@ -18,12 +18,19 @@ public class MovieTheaterGroup {
         listOfBranch = new ArrayList<>();
         listOfCustomer = new ArrayList<>();
         initBranches();
+        initMovie();
     }
 
     public void initBranches() {
         openBranch("Ataşehir");
         openBranch("Taksim");
         openBranch("Levent");
+    }
+
+    public void initMovie() {
+        listOfBranch.get(0).addMovie(new Movie("Arrival","Sci-Fi"));
+        listOfBranch.get(1).addMovie(new Movie("Rogue One","Sci-Fi"));
+        listOfBranch.get(2).addMovie(new Movie("Moana","Animation"));
     }
 
     public void calculateBranchRevenue(Branch branch, Movie movie) {
