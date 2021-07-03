@@ -1,10 +1,5 @@
 package Model;
 
-import Model.Branch;
-import Model.Customer;
-import Model.Movie;
-
-import javax.swing.*;
 import java.util.ArrayList;
 
 public class MovieTheaterGroup {
@@ -12,13 +7,38 @@ public class MovieTheaterGroup {
     private String nameOfGroup;
     private ArrayList<Branch> listOfBranch;
     private ArrayList<Customer> listOfCustomer;
+    private boolean seat[][];
 
     public MovieTheaterGroup(String nameOfGroup) {
         this.nameOfGroup = nameOfGroup;
         listOfBranch = new ArrayList<>();
         listOfCustomer = new ArrayList<>();
+        seat = new boolean[5][5];
         initBranches();
+        initSeat();
         initMovie();
+    }
+
+    public void initSeat() {
+        for (int y = 0; y < seat.length; y++) {
+            for (int x = 0; x < seat[0].length; x++) {
+                seat[y][x] = false;
+            }
+        }
+    }
+
+    public void checkSeat() {
+        for (Customer customer : listOfCustomer) {
+            for (Ticket ticket : customer.getPrevTickets()) {
+                for (int y = 0; y < ticket.getSeat().length; y++) {
+                    for (int x = 0; x < ticket.getSeat()[0].length; x++) {
+                        if (ticket.getSeat()[y][x] && !seat[y][x]) {
+                            seat[y][x] = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void initBranches() {
@@ -103,5 +123,9 @@ public class MovieTheaterGroup {
 
     public ArrayList<Customer> getListOfCustomer() {
         return listOfCustomer;
+    }
+
+    public boolean[][] getSeat() {
+        return seat;
     }
 }

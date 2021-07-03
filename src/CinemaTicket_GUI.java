@@ -10,7 +10,7 @@ public class CinemaTicket_GUI extends JPanel {
     private JButton newCustomer;
     private JButton existingCustomer;
     public static JPanel mainPanel;
-    public static TicketPanel ticketPanel;
+    public static SeatPanel seatPanel;
     private JTabbedPane tabPanel;
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel buttonPanel;
@@ -20,7 +20,7 @@ public class CinemaTicket_GUI extends JPanel {
         // Initializing components
         tabPanel = new JTabbedPane();
         movieTheaterGroup = new MovieTheaterGroup("Cinemaximum");
-        ticketPanel = new TicketPanel();
+        seatPanel = new SeatPanel(movieTheaterGroup);
         newCustomer = new JButton("New Customer");
         existingCustomer = new JButton("Existing Customer");
         buttonPanel = new JPanel();

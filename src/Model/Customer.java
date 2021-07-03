@@ -36,4 +36,8 @@ public class Customer {
 
         return str;
     }
+
+    public ArrayList<Ticket> getPrevTickets() {
+        return prevTickets;
+    }
 }
