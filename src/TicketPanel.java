@@ -49,6 +49,9 @@ public class TicketPanel extends JPanel {
                 selectBranch.addItem(branch);
         }
 
+        selectBranch.setSelectedIndex(-1);
+        selectMovie.setSelectedIndex(-1);
+
         selectBranch.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -80,6 +83,8 @@ public class TicketPanel extends JPanel {
         gbc.gridwidth = 1;
 
         gbc.insets = new Insets(100,50,10,50);
+
+        gbc.ipadx = 70;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGBTicket(branchLabel,0,0);
