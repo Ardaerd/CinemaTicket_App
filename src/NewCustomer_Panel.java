@@ -15,6 +15,7 @@ public class NewCustomer_Panel extends JPanel {
     private GridBagConstraints gbc;
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel addCustomer_Panel;
+    public static Customer customer;
 
     public NewCustomer_Panel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing components of the newCustomer_Panel
@@ -64,7 +65,8 @@ public class NewCustomer_Panel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
-                    movieTheaterGroup.addCustomer(new Customer(firstName.getText(),lastName.getText()));
+                    customer = new Customer(firstName.getText(),lastName.getText());
+                    movieTheaterGroup.addCustomer(customer);
                     JOptionPane.showMessageDialog(null,firstName.getText().toUpperCase() + " " + lastName.getText().toUpperCase() + " is added", "Customer",JOptionPane.INFORMATION_MESSAGE);
                     CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
                     CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
@@ -83,4 +85,6 @@ public class NewCustomer_Panel extends JPanel {
         gbc.gridy = y;
         addCustomer_Panel.add(comp,gbc);
     }
+
+
 }

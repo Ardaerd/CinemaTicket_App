@@ -3,6 +3,7 @@ package Model;
 import Model.Branch;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Customer {
     private String firstName;

@@ -1,7 +1,4 @@
-import Model.Branch;
-import Model.Movie;
-import Model.MovieTheaterGroup;
-import Model.Ticket;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,6 +9,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 public class TicketPanel extends JPanel {
+    private ImageIcon wrong;
+    private ImageIcon correct;
     private JPanel buttonPanel;
     private JPanel mainPanel;
     private JPanel ticketPanel;
@@ -33,6 +32,8 @@ public class TicketPanel extends JPanel {
 
     public TicketPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing the components
+        wrong = new ImageIcon("src/Pic/wrong.png");
+        correct = new ImageIcon("src/Pic/check.png");
         buyTicketClicked = false;
         prevTicketClicked = false;
         buttonPanel = new JPanel();
@@ -46,8 +47,8 @@ public class TicketPanel extends JPanel {
         branchLabel = new JLabel("Select a Branch:");
         adultLabel = new JLabel("# Adults:");
         childLabel = new JLabel("# Children:");
-        selectMovie = new JComboBox<>();
-        selectBranch = new JComboBox<>();
+        selectMovie = new JComboBox<Movie>();
+        selectBranch = new JComboBox<Branch>();
         adultCounter = new JSpinner(new SpinnerNumberModel(0,0,10,1));
         childCounter = new JSpinner(new SpinnerNumberModel(0,0,10,1));
         gbc = new GridBagConstraints();
@@ -58,7 +59,7 @@ public class TicketPanel extends JPanel {
         }
 
         selectBranch.setSelectedIndex(-1);
-        selectMovie.setSelectedIndex(-1);
+
 
         selectBranch.addItemListener(new ItemListener() {
             @Override
@@ -71,7 +72,7 @@ public class TicketPanel extends JPanel {
                     for (Movie movie : branch.getListOfMovie()) {
                         selectMovie.addItem(movie);
                     }
-
+                    selectMovie.setSelectedIndex(-1);
                 }
             }
         });
@@ -146,6 +147,32 @@ public class TicketPanel extends JPanel {
                     mainPanel.revalidate();
                     mainPanel.repaint();
                     buyTicketClicked = true;
+                }
+            }
+        });
+
+        // Adding actionListener to the buyButton for buying a ticket
+        buyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    if (selectBranch.getSelectedIndex() == -1) {
+                        JOptionPane.showMessageDialog(null,"You have to fill Branch section!","Empty Branch",JOptionPane.QUESTION_MESSAGE,wrong);
+                    } else if (selectMovie.getSelectedIndex() == -1) {
+                        JOptionPane.showMessageDialog(null,"You have to fill Movie section!","Empty Movie",JOptionPane.QUESTION_MESSAGE,wrong);
+                    } else if (((Integer) childCounter.getValue()) == 0 && ((Integer) adultCounter.getValue() == 0)) {
+                        JOptionPane.showMessageDialog(null,"You have to increment person section!","Zero Ticket",JOptionPane.QUESTION_MESSAGE,wrong);
+                    } else {
+                        Customer customer = NewCustomer_Panel.customer;
+                        customer.buyTicket((Branch) selectBranch.getSelectedItem(),(Movie) selectMovie.getSelectedItem(),(Integer) adultCounter.getValue(), (Integer) childCounter.getValue());
+                        String str = "The payment is successful!\n" +
+                                "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";
+                        JOptionPane.showMessageDialog(null,str,"Buying Ticket",JOptionPane.QUESTION_MESSAGE,correct);
+                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.ticketPanel);
+                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.seatPanel);
+                        CinemaTicket_GUI.mainPanel.revalidate();
+                        CinemaTicket_GUI.mainPanel.repaint();
+                    }
                 }
             }
         });
