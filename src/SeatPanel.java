@@ -23,10 +23,14 @@ public class SeatPanel extends JPanel {
         seat = new ImageIcon("src/Pic/seat.png");
         selectedSeat = new ImageIcon("src/Pic/seat (1).png");
 
+        // Setting background color
+        topPanel.setBackground(new Color(58, 61, 82));
+        seatPanel.setBackground(new Color(58, 61, 82));
+
         // Creating layout
         seatPanel.setLayout(new GridBagLayout());
         topPanel.setLayout(new GridBagLayout());
-        seatPanel.setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
 
         // displaying screen
         screenPanel.setBackground(Color.WHITE);
@@ -75,12 +79,15 @@ public class SeatPanel extends JPanel {
                     });
                 }
 
+                JLabel seatX = new JLabel(String.valueOf(x+1));
+                seatX.setForeground(Color.WHITE);
+                addGBSeatPanel(seatX,x,movieTheaterGroup.getSeat().length);
                 addGBSeatPanel(seatLabel,x,y);
             }
         }
 
         // Adding to the this panel
-        add(topPanel);
+        add(topPanel,BorderLayout.CENTER);
     }
 
     // Adding to the seat panel

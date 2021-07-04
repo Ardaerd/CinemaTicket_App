@@ -49,6 +49,8 @@ public class MovieTheaterGroup {
 
     public void initMovie() {
         listOfBranch.get(0).addMovie(new Movie("Arrival","Sci-Fi"));
+        listOfBranch.get(0).addMovie(new Movie("Rogue One","Sci-Fi"));
+        listOfBranch.get(0).addMovie(new Movie("Moana","Animation"));
         listOfBranch.get(1).addMovie(new Movie("Rogue One","Sci-Fi"));
         listOfBranch.get(2).addMovie(new Movie("Moana","Animation"));
     }

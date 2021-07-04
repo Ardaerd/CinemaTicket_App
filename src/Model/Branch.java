@@ -22,6 +22,10 @@ public class Branch {
 
     }
 
+    public String toString() {
+        return nameOfBranch;
+    }
+
     public void addTicket(Ticket ticket) {
         prevTicket.add(ticket);
     }
