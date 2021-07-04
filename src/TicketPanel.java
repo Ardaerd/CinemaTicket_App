@@ -6,6 +6,8 @@ import Model.Ticket;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -25,19 +27,25 @@ public class TicketPanel extends JPanel {
     private JComboBox<Branch> selectBranch;
     private JSpinner adultCounter;
     private JSpinner childCounter;
+    private JButton buyButton;
+    private boolean buyTicketClicked;
+    private boolean prevTicketClicked;
 
     public TicketPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing the components
+        buyTicketClicked = false;
+        prevTicketClicked = false;
         buttonPanel = new JPanel();
         mainPanel = new JPanel();
         ticketPanel = new JPanel();
         prevTicketPanel = new JPanel();
         buyTicket = new JButton("Buy Ticket");
         displayPrev = new JButton("Display Previous Ticket");
+        buyButton = new JButton("Buy Ticket");
         movieLabel = new JLabel("Select a Movie:");
         branchLabel = new JLabel("Select a Branch:");
         adultLabel = new JLabel("# Adults:");
-        childLabel = new JLabel("# Children");
+        childLabel = new JLabel("# Children:");
         selectMovie = new JComboBox<>();
         selectBranch = new JComboBox<>();
         adultCounter = new JSpinner(new SpinnerNumberModel(0,0,10,1));
@@ -82,9 +90,9 @@ public class TicketPanel extends JPanel {
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
 
-        gbc.insets = new Insets(100,50,10,50);
+        gbc.insets = new Insets(200,50,10,50);
 
-        gbc.ipadx = 70;
+        gbc.ipadx = 60;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGBTicket(branchLabel,0,0);
@@ -92,22 +100,59 @@ public class TicketPanel extends JPanel {
         gbc.anchor = GridBagConstraints.FIRST_LINE_END;
         addGBTicket(selectBranch,1,0);
 
+        gbc.insets = new Insets(10,50,10,50);
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGBTicket(movieLabel,0,1);
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_END;
         addGBTicket(selectMovie,1,1);
 
+        gbc.ipadx = 10;
+        gbc.ipady = 7;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        addGBTicket(adultLabel,0,2);
+
+        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+        addGBTicket(adultCounter,1,2);
+
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        addGBTicket(childLabel,0,3);
+
+        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+        addGBTicket(childCounter,1,3);
+
+        gbc.insets = new Insets(30,50,10,50);
+        gbc.gridwidth = 2;
+        gbc.ipadx = 70;
+        gbc.ipady = 8;
+        gbc.anchor = GridBagConstraints.CENTER;
+        addGBTicket(buyButton,0,4);
+
         // Adding components to the button panel
         buttonPanel.add(displayPrev);
         buttonPanel.add(buyTicket);
 
-        // Adding panels to the mainPanel
-        mainPanel.add(ticketPanel);
+        // Adding actionListener to the buyTicket button for displaying ticketPanel
+        buyTicket.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    // Adding panels to the mainPanel
+                    if (prevTicketClicked) {
+                        mainPanel.remove(prevTicketPanel);
+                        prevTicketClicked = false;
+                    }
+                    mainPanel.add(ticketPanel);
+                    mainPanel.revalidate();
+                    mainPanel.repaint();
+                    buyTicketClicked = true;
+                }
+            }
+        });
 
         // Adding components to the this panel
         add(buttonPanel, BorderLayout.NORTH);
-        add(mainPanel, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.SOUTH);
     }
 
     public void addGBTicket(Component comp, int x, int y) {
