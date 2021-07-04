@@ -6,6 +6,8 @@ import Model.Ticket;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 public class TicketPanel extends JPanel {
     private JPanel buttonPanel;
@@ -19,15 +21,12 @@ public class TicketPanel extends JPanel {
     private JLabel adultLabel;
     private JLabel childLabel;
     private JLabel branchLabel;
-    private JComboBox<String> selectMovie;
+    private JComboBox<Movie> selectMovie;
     private JComboBox<Branch> selectBranch;
     private JSpinner adultCounter;
     private JSpinner childCounter;
 
     public TicketPanel(MovieTheaterGroup movieTheaterGroup) {
-
-        DefaultComboBoxModel model = new DefaultComboBoxModel(new String[] {});
-
         // Initializing the components
         buttonPanel = new JPanel();
         mainPanel = new JPanel();
@@ -39,21 +38,32 @@ public class TicketPanel extends JPanel {
         branchLabel = new JLabel("Select a Branch:");
         adultLabel = new JLabel("# Adults:");
         childLabel = new JLabel("# Children");
-        selectMovie = new JComboBox<>(model);
+        selectMovie = new JComboBox<>();
         selectBranch = new JComboBox<>();
         adultCounter = new JSpinner(new SpinnerNumberModel(0,0,10,1));
         childCounter = new JSpinner(new SpinnerNumberModel(0,0,10,1));
         gbc = new GridBagConstraints();
 
-        // Adding movies to the selectMovie (JComboBox)
-            for (Movie movie : ((Branch) selectBranch.getSelectedItem()).getListOfMovie()) {
-                    model.addElement(movie.getNameOfMovie());
-            }
-
-        // Displaying branches according to the movie
+        // Adding branches to teh selectBranch (JComboBox)
         for (Branch branch : movieTheaterGroup.getListOfBranch()) {
                 selectBranch.addItem(branch);
         }
+
+        selectBranch.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    Branch branch = (Branch) e.getItem();
+
+                    // Adding movies to the selectMovie (JComboBox)
+                    selectMovie.removeAllItems();
+                    for (Movie movie : branch.getListOfMovie()) {
+                        selectMovie.addItem(movie);
+                    }
+
+                }
+            }
+        });
 
         // Setting size
         buyTicket.setPreferredSize(new Dimension(170,30));

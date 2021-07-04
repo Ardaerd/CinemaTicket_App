@@ -9,6 +9,10 @@ public class Movie {
         this.genre = genre;
     }
 
+    public String toString() {
+        return nameOfMovie;
+    }
+
     public String getNameOfMovie() {
         return nameOfMovie;
     }
