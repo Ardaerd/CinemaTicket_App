@@ -17,6 +17,7 @@ public class MovieTheaterGroup {
         initBranches();
         initSeat();
         initMovie();
+        checkSeat();
     }
 
     public void initSeat() {

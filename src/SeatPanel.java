@@ -10,9 +10,11 @@ public class SeatPanel extends JPanel {
     private JPanel seatPanel;
     private JPanel screenPanel;
     private JPanel topPanel;
+    private JButton seatButton;
     private GridBagConstraints gbc;
     private ImageIcon seat;
     private ImageIcon selectedSeat;
+    private boolean isClicked[][];
 
     public SeatPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing  the components
@@ -22,6 +24,8 @@ public class SeatPanel extends JPanel {
         gbc = new GridBagConstraints();
         seat = new ImageIcon("src/Pic/seat.png");
         selectedSeat = new ImageIcon("src/Pic/seat (1).png");
+        seatButton = new JButton("Complete seat selection");
+        isClicked = new boolean[5][5];
 
         // Setting background color
         topPanel.setBackground(new Color(58, 61, 82));
@@ -52,7 +56,7 @@ public class SeatPanel extends JPanel {
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
 
-        gbc.insets = new Insets(10,30,15,30);
+        gbc.insets = new Insets(10,30,10,30);
 
         gbc.ipadx = 0;
         gbc.ipady = 0;
@@ -66,25 +70,37 @@ public class SeatPanel extends JPanel {
                     seatLabel.setIcon(selectedSeat);
                 }
 
-                if (!movieTheaterGroup.getSeat()[y][x]) {
-                    seatLabel.addMouseListener(new MouseAdapter() {
+
+                int Y = y;
+                int X = x;
+                seatLabel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
-                            if (e.getSource() instanceof JLabel) {
-                                JLabel label = (JLabel) e.getSource();
-                                label.setIcon(selectedSeat);
-                            }
+                                if (e.getSource() instanceof JLabel) {
+                                    JLabel label = (JLabel) e.getSource();
+                                    if (!movieTheaterGroup.getSeat()[Y][X]) {
+                                        label.setIcon(selectedSeat);
+                                        isClicked[Y][X] = true;
+                                        movieTheaterGroup.getSeat()[Y][X] = true;
+                                    } else if (isClicked[Y][X]) {
+                                        label.setIcon(seat);
+                                        isClicked[Y][X] = false;
+                                        movieTheaterGroup.getSeat()[Y][X] = false;
+                                    }
+                                }
                         }
-                    });
-                }
-
-                JLabel seatX = new JLabel(String.valueOf(x+1));
-                seatX.setForeground(Color.WHITE);
-                addGBSeatPanel(seatX,x,movieTheaterGroup.getSeat().length);
+                });
                 addGBSeatPanel(seatLabel,x,y);
             }
         }
+
+        // Setting places for seatButton
+        gbc.insets = new Insets(15,30,10,30);
+        gbc.gridwidth = 5;
+        gbc.ipady = 5;
+        gbc.anchor = GridBagConstraints.CENTER;
+        addGBSeatPanel(seatButton,0,movieTheaterGroup.getSeat().length+1);
 
         // Adding to the this panel
         add(topPanel,BorderLayout.CENTER);
