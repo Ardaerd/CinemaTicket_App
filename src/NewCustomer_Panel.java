@@ -22,8 +22,8 @@ public class NewCustomer_Panel extends JPanel {
         addCustomer_Panel = new JPanel();
         firstNameLabel = new JLabel("First Name: ");
         lastNameLabel = new JLabel("Last Name: ");
-        firstName = new JTextField();
-        lastName = new JTextField();
+        firstName = new JTextField(20);
+        lastName = new JTextField(20);
         addButton = new JButton("Add");
         gbc = new GridBagConstraints();
         this.movieTheaterGroup = movieTheaterGroup;
@@ -32,15 +32,17 @@ public class NewCustomer_Panel extends JPanel {
         addCustomer_Panel.setLayout(new GridBagLayout());
 
         // Setting place for the components of the newCustomer_Panel
+        gbc.weightx = 13.0;
+        gbc.weighty = 13.0;
+
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
 
-        gbc.insets = new Insets(10,10,10,10);
+        gbc.insets = new Insets(10,20,10,20);
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGB(firstNameLabel,0,0);
 
-        gbc.ipadx = 190;
         gbc.ipady = 5;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_END;
@@ -68,10 +70,11 @@ public class NewCustomer_Panel extends JPanel {
                     customer = new Customer(firstName.getText(),lastName.getText());
                     movieTheaterGroup.addCustomer(customer);
                     JOptionPane.showMessageDialog(null,firstName.getText().toUpperCase() + " " + lastName.getText().toUpperCase() + " is added", "Customer",JOptionPane.INFORMATION_MESSAGE);
+                    CinemaTicket_GUI.ticketPanel = new TicketPanel(movieTheaterGroup);
                     CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
                     CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
-                    CinemaTicket_GUI.mainPanel.revalidate();
                     CinemaTicket_GUI.mainPanel.repaint();
+                    CinemaTicket_GUI.mainPanel.revalidate();
                 }
             }
         });

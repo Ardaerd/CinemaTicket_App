@@ -14,7 +14,7 @@ public class CinemaTicket_GUI extends JPanel {
     public static TicketPanel ticketPanel;
     private JTabbedPane tabPanel;
     private MovieTheaterGroup movieTheaterGroup;
-    private JPanel buttonPanel;
+    public static JPanel buttonPanel;
     public static NewCustomer_Panel newCustomer_Panel;
 
     public CinemaTicket_GUI() {
@@ -38,6 +38,7 @@ public class CinemaTicket_GUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
+                    newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
                     mainPanel.remove(buttonPanel);
                     mainPanel.add(newCustomer_Panel);
                     mainPanel.repaint();

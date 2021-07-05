@@ -1,12 +1,17 @@
+import Model.Customer;
 import Model.MovieTheaterGroup;
 import Model.Ticket;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class SeatPanel extends JPanel {
+    private ImageIcon wrong;
+    private ImageIcon correct;
     private JPanel seatPanel;
     private JPanel screenPanel;
     private JPanel topPanel;
@@ -18,6 +23,8 @@ public class SeatPanel extends JPanel {
 
     public SeatPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing  the components
+        wrong = new ImageIcon("src/Pic/wrong.png");
+        correct = new ImageIcon("src/Pic/check.png");
         seatPanel = new JPanel();
         topPanel = new JPanel();
         screenPanel = new JPanel();
@@ -101,6 +108,33 @@ public class SeatPanel extends JPanel {
         gbc.ipady = 5;
         gbc.anchor = GridBagConstraints.CENTER;
         addGBSeatPanel(seatButton,0,movieTheaterGroup.getSeat().length+1);
+
+        // Adding actionListener to the seatButton
+        seatButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    int count = 0;
+                    for (int i = 0; i < isClicked.length; i++) {
+                        for (int j = 0; j < isClicked[0].length; j++) {
+                            if (isClicked[i][j])
+                                count++;
+                        }
+                    }
+
+                    Customer customer = NewCustomer_Panel.customer;
+                    int numPeople = customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getAdultCount() + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getChildrenCount();
+
+                    if (count == numPeople) {
+                        JOptionPane.showMessageDialog(null,"Choosing seats successfully completed!","Selecting Seats",JOptionPane.QUESTION_MESSAGE,correct);
+                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.seatPanel);
+                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.buttonPanel);
+                        CinemaTicket_GUI.mainPanel.repaint();
+                        CinemaTicket_GUI.mainPanel.revalidate();
+                    }
+                }
+            }
+        });
 
         // Adding to the this panel
         add(topPanel,BorderLayout.CENTER);

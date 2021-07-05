@@ -168,6 +168,7 @@ public class TicketPanel extends JPanel {
                         String str = "The payment is successful!\n" +
                                 "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";
                         JOptionPane.showMessageDialog(null,str,"Buying Ticket",JOptionPane.QUESTION_MESSAGE,correct);
+                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup);
                         CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.ticketPanel);
                         CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.seatPanel);
                         CinemaTicket_GUI.mainPanel.revalidate();
