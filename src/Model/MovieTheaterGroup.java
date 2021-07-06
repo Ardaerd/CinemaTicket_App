@@ -7,6 +7,7 @@ public class MovieTheaterGroup {
     private String nameOfGroup;
     private ArrayList<Branch> listOfBranch;
     private ArrayList<Customer> listOfCustomer;
+    private boolean checkCustomer;
 
     public MovieTheaterGroup(String nameOfGroup) {
         this.nameOfGroup = nameOfGroup;
@@ -14,6 +15,16 @@ public class MovieTheaterGroup {
         listOfCustomer = new ArrayList<>();
         initBranches();
         initMovie();
+    }
+
+    public boolean checkCustomer(Customer customer) {
+        for (Customer customer1 : listOfCustomer) {
+            if (customer1.getFirstName().equals(customer.getFirstName()) && customer1.getLastName().equals(customer.getLastName())) {
+                System.out.println("Already exist customer");
+                return false;
+            }
+        }
+        return true;
     }
 
     public void initBranches() {

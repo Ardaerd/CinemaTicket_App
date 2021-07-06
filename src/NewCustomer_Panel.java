@@ -16,9 +16,13 @@ public class NewCustomer_Panel extends JPanel {
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel addCustomer_Panel;
     public static Customer customer;
+    private ImageIcon addUser;
+    private ImageIcon wrongUser;
 
     public NewCustomer_Panel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing components of the newCustomer_Panel
+        addUser = new ImageIcon("src/Pic/add-user.png");
+        wrongUser = new ImageIcon("src/Pic/authentication.png");
         addCustomer_Panel = new JPanel();
         firstNameLabel = new JLabel("First Name: ");
         lastNameLabel = new JLabel("Last Name: ");
@@ -67,13 +71,35 @@ public class NewCustomer_Panel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
-                    customer = new Customer(firstName.getText(),lastName.getText());
-                    movieTheaterGroup.addCustomer(customer);
-                    JOptionPane.showMessageDialog(null,firstName.getText().toUpperCase() + " " + lastName.getText().toUpperCase() + " is added", "Customer",JOptionPane.INFORMATION_MESSAGE);
 
-                    CinemaTicket_GUI.ticketPanel = new TicketPanel(movieTheaterGroup);
-                    CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
-                    CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
+                        if (firstName.getText().length()<1 || lastName.getText().length()<1) {
+                            System.out.println(firstName.getText().length());
+                            System.out.println(lastName.getText().length());
+                            JOptionPane.showMessageDialog(null,"You have to fill the form!", "Customer",JOptionPane.INFORMATION_MESSAGE,wrongUser);
+
+                            CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
+                            CinemaTicket_GUI.newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
+                            CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.newCustomer_Panel);
+
+                        } else {
+                            customer = new Customer(firstName.getText(),lastName.getText());
+
+                            if (movieTheaterGroup.checkCustomer(customer)) {
+                                movieTheaterGroup.addCustomer(customer);
+                                JOptionPane.showMessageDialog(null,firstName.getText().substring(0,1).toUpperCase() + firstName.getText().substring(1) + " " + lastName.getText().substring(0,1).toUpperCase() + lastName.getText().substring(1) + " is added!", "Customer",JOptionPane.INFORMATION_MESSAGE,addUser);
+
+                                CinemaTicket_GUI.ticketPanel = new TicketPanel(movieTheaterGroup);
+                                CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
+                                CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
+                            } else {
+                                JOptionPane.showMessageDialog(null,firstName.getText().substring(0,1).toUpperCase() + firstName.getText().substring(1) + " " + lastName.getText().substring(0,1).toUpperCase() + lastName.getText().substring(1) + " is already an existing customer!", "Customer",JOptionPane.INFORMATION_MESSAGE,wrongUser);
+
+                                CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
+                                CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.buttonPanel);
+                            }
+                        }
+
+
                     CinemaTicket_GUI.mainPanel.repaint();
                     CinemaTicket_GUI.mainPanel.revalidate();
                 }
