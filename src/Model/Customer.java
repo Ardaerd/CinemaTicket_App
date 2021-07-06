@@ -38,6 +38,14 @@ public class Customer {
         return str;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public ArrayList<Ticket> getPrevTickets() {
         return prevTickets;
     }

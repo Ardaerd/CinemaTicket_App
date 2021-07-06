@@ -29,6 +29,7 @@ public class TicketPanel extends JPanel {
     private JButton buyButton;
     private boolean buyTicketClicked;
     private boolean prevTicketClicked;
+    private Customer customer;
 
     public TicketPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing the components
@@ -163,13 +164,13 @@ public class TicketPanel extends JPanel {
                     } else if (((Integer) childCounter.getValue()) == 0 && ((Integer) adultCounter.getValue() == 0)) {
                         JOptionPane.showMessageDialog(null,"You have to increment person section!","Zero Ticket",JOptionPane.QUESTION_MESSAGE,wrong);
                     } else {
-                        Customer customer = NewCustomer_Panel.customer;
+                        customer = NewCustomer_Panel.customer;
                         customer.buyTicket((Branch) selectBranch.getSelectedItem(),(Movie) selectMovie.getSelectedItem(),(Integer) adultCounter.getValue(), (Integer) childCounter.getValue());
                         String str = "The payment is successful!\n" +
                                 "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";
                         JOptionPane.showMessageDialog(null,str,"Buying Ticket",JOptionPane.QUESTION_MESSAGE,correct);
 
-                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup,CinemaTicket_GUI.ticketPanel);
+                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup);
                         CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.ticketPanel);
                         CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.seatPanel);
                         CinemaTicket_GUI.mainPanel.revalidate();
@@ -198,5 +199,9 @@ public class TicketPanel extends JPanel {
 
     public JComboBox<Movie> getSelectMovie() {
         return selectMovie;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 }

@@ -70,6 +70,7 @@ public class NewCustomer_Panel extends JPanel {
                     customer = new Customer(firstName.getText(),lastName.getText());
                     movieTheaterGroup.addCustomer(customer);
                     JOptionPane.showMessageDialog(null,firstName.getText().toUpperCase() + " " + lastName.getText().toUpperCase() + " is added", "Customer",JOptionPane.INFORMATION_MESSAGE);
+
                     CinemaTicket_GUI.ticketPanel = new TicketPanel(movieTheaterGroup);
                     CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.newCustomer_Panel);
                     CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);

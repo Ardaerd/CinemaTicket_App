@@ -22,7 +22,7 @@ public class SeatPanel extends JPanel {
     private ImageIcon selectedSeat;
     private boolean isClicked[][];
 
-    public SeatPanel(MovieTheaterGroup movieTheaterGroup,TicketPanel ticketPanel) {
+    public SeatPanel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing  the components
         wrong = new ImageIcon("src/Pic/wrong.png");
         correct = new ImageIcon("src/Pic/check.png");
@@ -69,12 +69,9 @@ public class SeatPanel extends JPanel {
         gbc.ipadx = 0;
         gbc.ipady = 0;
 
-        Customer customer = CinemaTicket_GUI.newCustomer_Panel.customer;
-        System.out.println(customer);
-        Movie movie = (Movie) customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getMovie();
-        if (movie == null) {
-            movie = movieTheaterGroup.getListOfBranch().get(0).getListOfMovie().get(0);
-        }
+        Customer customer = movieTheaterGroup.getListOfCustomer().get(movieTheaterGroup.getListOfCustomer().size()-1);
+        Movie movie = customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getMovie();
+        movieTheaterGroup.listCustomer();
 
         for (int y = 0; y < movie.getSeat().length; y++) {
             for (int x = 0; x < movie.getSeat()[0].length; x++) {
@@ -88,21 +85,20 @@ public class SeatPanel extends JPanel {
 
                 int Y = y;
                 int X = x;
-                Movie MOVIE = movie;
                 seatLabel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                                 if (e.getSource() instanceof JLabel) {
                                     JLabel label = (JLabel) e.getSource();
-                                    if (!MOVIE.getSeat()[Y][X]) {
+                                    if (!movie.getSeat()[Y][X]) {
                                         label.setIcon(selectedSeat);
                                         isClicked[Y][X] = true;
-                                        MOVIE.getSeat()[Y][X] = true;
+                                        movie.getSeat()[Y][X] = true;
                                     } else if (isClicked[Y][X]) {
                                         label.setIcon(seat);
                                         isClicked[Y][X] = false;
-                                        MOVIE.getSeat()[Y][X] = false;
+                                        movie.getSeat()[Y][X] = false;
                                     }
                                 }
                         }

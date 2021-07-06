@@ -90,6 +90,12 @@ public class MovieTheaterGroup {
         }
     }
 
+    public void listCustomer() {
+        for (Customer customer : listOfCustomer) {
+            System.out.println(customer.getFirstName());
+        }
+    }
+
     public String getNameOfGroup() {
         return nameOfGroup;
     }
