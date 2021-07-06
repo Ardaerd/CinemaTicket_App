@@ -1,4 +1,5 @@
 import Model.Customer;
+import Model.Movie;
 import Model.MovieTheaterGroup;
 import Model.Ticket;
 
@@ -21,7 +22,7 @@ public class SeatPanel extends JPanel {
     private ImageIcon selectedSeat;
     private boolean isClicked[][];
 
-    public SeatPanel(MovieTheaterGroup movieTheaterGroup) {
+    public SeatPanel(MovieTheaterGroup movieTheaterGroup,TicketPanel ticketPanel) {
         // Initializing  the components
         wrong = new ImageIcon("src/Pic/wrong.png");
         correct = new ImageIcon("src/Pic/check.png");
@@ -68,32 +69,40 @@ public class SeatPanel extends JPanel {
         gbc.ipadx = 0;
         gbc.ipady = 0;
 
-        for (int y = 0; y < movieTheaterGroup.getSeat().length; y++) {
-            for (int x = 0; x < movieTheaterGroup.getSeat()[0].length; x++) {
+        Customer customer = CinemaTicket_GUI.newCustomer_Panel.customer;
+        System.out.println(customer);
+        Movie movie = (Movie) customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getMovie();
+        if (movie == null) {
+            movie = movieTheaterGroup.getListOfBranch().get(0).getListOfMovie().get(0);
+        }
+
+        for (int y = 0; y < movie.getSeat().length; y++) {
+            for (int x = 0; x < movie.getSeat()[0].length; x++) {
                 JLabel seatLabel = new JLabel();
                 seatLabel.setIcon(seat);
 
-                if (movieTheaterGroup.getSeat()[y][x]) {
+                if (movie.getSeat()[y][x]) {
                     seatLabel.setIcon(selectedSeat);
                 }
 
 
                 int Y = y;
                 int X = x;
+                Movie MOVIE = movie;
                 seatLabel.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             super.mouseClicked(e);
                                 if (e.getSource() instanceof JLabel) {
                                     JLabel label = (JLabel) e.getSource();
-                                    if (!movieTheaterGroup.getSeat()[Y][X]) {
+                                    if (!MOVIE.getSeat()[Y][X]) {
                                         label.setIcon(selectedSeat);
                                         isClicked[Y][X] = true;
-                                        movieTheaterGroup.getSeat()[Y][X] = true;
+                                        MOVIE.getSeat()[Y][X] = true;
                                     } else if (isClicked[Y][X]) {
                                         label.setIcon(seat);
                                         isClicked[Y][X] = false;
-                                        movieTheaterGroup.getSeat()[Y][X] = false;
+                                        MOVIE.getSeat()[Y][X] = false;
                                     }
                                 }
                         }
@@ -107,7 +116,7 @@ public class SeatPanel extends JPanel {
         gbc.gridwidth = 5;
         gbc.ipady = 5;
         gbc.anchor = GridBagConstraints.CENTER;
-        addGBSeatPanel(seatButton,0,movieTheaterGroup.getSeat().length+1);
+        addGBSeatPanel(seatButton,0,movie.getSeat().length+1);
 
         // Adding actionListener to the seatButton
         seatButton.addActionListener(new ActionListener() {
@@ -131,6 +140,10 @@ public class SeatPanel extends JPanel {
                         CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.buttonPanel);
                         CinemaTicket_GUI.mainPanel.repaint();
                         CinemaTicket_GUI.mainPanel.revalidate();
+                    } else if (count > numPeople) {
+                        JOptionPane.showMessageDialog(null,"You have purchased a ticket for " + numPeople + " person!","Selecting Seats",JOptionPane.QUESTION_MESSAGE,wrong);
+                    } else if (numPeople > count) {
+                        JOptionPane.showMessageDialog(null,"You have purchased a ticket for " + numPeople + " person!","Selecting Seats",JOptionPane.QUESTION_MESSAGE,wrong);
                     }
                 }
             }

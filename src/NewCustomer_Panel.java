@@ -22,8 +22,8 @@ public class NewCustomer_Panel extends JPanel {
         addCustomer_Panel = new JPanel();
         firstNameLabel = new JLabel("First Name: ");
         lastNameLabel = new JLabel("Last Name: ");
-        firstName = new JTextField(20);
-        lastName = new JTextField(20);
+        firstName = new JTextField(15);
+        lastName = new JTextField(15);
         addButton = new JButton("Add");
         gbc = new GridBagConstraints();
         this.movieTheaterGroup = movieTheaterGroup;
@@ -38,17 +38,17 @@ public class NewCustomer_Panel extends JPanel {
         gbc.gridheight = 1;
         gbc.gridwidth = 1;
 
-        gbc.insets = new Insets(10,20,10,20);
+        gbc.insets = new Insets(10,25,10,25);
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGB(firstNameLabel,0,0);
 
-        gbc.ipady = 5;
+        gbc.ipady = 6;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_END;
         addGB(firstName,1,0);
 
-        gbc.insets = new Insets(10,10,25,10);
+        gbc.insets = new Insets(10,25,25,25);
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGB(lastNameLabel,0,1);
 

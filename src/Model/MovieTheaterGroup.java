@@ -7,39 +7,13 @@ public class MovieTheaterGroup {
     private String nameOfGroup;
     private ArrayList<Branch> listOfBranch;
     private ArrayList<Customer> listOfCustomer;
-    private boolean seat[][];
 
     public MovieTheaterGroup(String nameOfGroup) {
         this.nameOfGroup = nameOfGroup;
         listOfBranch = new ArrayList<>();
         listOfCustomer = new ArrayList<>();
-        seat = new boolean[5][5];
         initBranches();
-        initSeat();
         initMovie();
-        checkSeat();
-    }
-
-    public void initSeat() {
-        for (int y = 0; y < seat.length; y++) {
-            for (int x = 0; x < seat[0].length; x++) {
-                seat[y][x] = false;
-            }
-        }
-    }
-
-    public void checkSeat() {
-        for (Customer customer : listOfCustomer) {
-            for (Ticket ticket : customer.getPrevTickets()) {
-                for (int y = 0; y < ticket.getSeat().length; y++) {
-                    for (int x = 0; x < ticket.getSeat()[0].length; x++) {
-                        if (ticket.getSeat()[y][x] && !seat[y][x]) {
-                            seat[y][x] = true;
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public void initBranches() {
@@ -49,11 +23,11 @@ public class MovieTheaterGroup {
     }
 
     public void initMovie() {
-        listOfBranch.get(0).addMovie(new Movie("Arrival","Sci-Fi"));
-        listOfBranch.get(0).addMovie(new Movie("Rogue One","Sci-Fi"));
-        listOfBranch.get(0).addMovie(new Movie("Moana","Animation"));
-        listOfBranch.get(1).addMovie(new Movie("Rogue One","Sci-Fi"));
-        listOfBranch.get(2).addMovie(new Movie("Moana","Animation"));
+        Movie movie1 = new Movie("Arrival","Sci-Fi",listOfBranch.get(0));
+        Movie movie2 = new Movie("Rogue One","Sci-Fi",listOfBranch.get(0));
+        Movie movie3 = new Movie("Moana","Animation",listOfBranch.get(0));
+        Movie movie4 = new Movie("Rogue One","Sci-Fi",listOfBranch.get(1));
+        Movie movie5 = new Movie("Moana","Animation",listOfBranch.get(2));
     }
 
     public void calculateBranchRevenue(Branch branch, Movie movie) {
@@ -126,9 +100,5 @@ public class MovieTheaterGroup {
 
     public ArrayList<Customer> getListOfCustomer() {
         return listOfCustomer;
-    }
-
-    public boolean[][] getSeat() {
-        return seat;
     }
 }

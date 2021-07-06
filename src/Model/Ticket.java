@@ -9,10 +9,12 @@ public class Ticket {
     private int adultCount;
     private int childrenCount;
     private Movie movie;
+    private Branch branch;
     private double totalPrice;
     private boolean seat[][];
 
-    public Ticket(Movie movie) {
+    public Ticket(Movie movie,Branch branch) {
+        this.branch = branch;
         this.movie = movie;
         seat = new boolean[5][5];
     }
@@ -59,5 +61,9 @@ public class Ticket {
 
     public boolean[][] getSeat() {
         return seat;
+    }
+
+    public Branch getBranch() {
+        return branch;
     }
 }

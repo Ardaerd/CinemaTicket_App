@@ -17,7 +17,7 @@ public class Customer {
     }
 
     public void buyTicket (Branch branch, Movie movie, int adultCount, int childrenCount) {
-        Ticket ticket = new Ticket(movie);
+        Ticket ticket = new Ticket(movie,branch);
 
         ticket.setAdultCount(adultCount);
         ticket.setChildrenCount(childrenCount);

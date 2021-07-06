@@ -80,6 +80,8 @@ public class TicketPanel extends JPanel {
         // Setting size
         buyTicket.setPreferredSize(new Dimension(170,30));
         displayPrev.setPreferredSize(new Dimension(230,30));
+        selectMovie.setPreferredSize(new Dimension(150,25));
+        selectBranch.setPreferredSize(new Dimension(150,25));
 
         // Setting Layout
         setLayout(new BorderLayout());
@@ -92,8 +94,6 @@ public class TicketPanel extends JPanel {
         gbc.gridwidth = 1;
 
         gbc.insets = new Insets(200,50,10,50);
-
-        gbc.ipadx = 60;
 
         gbc.anchor = GridBagConstraints.FIRST_LINE_START;
         addGBTicket(branchLabel,0,0);
@@ -168,7 +168,8 @@ public class TicketPanel extends JPanel {
                         String str = "The payment is successful!\n" +
                                 "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";
                         JOptionPane.showMessageDialog(null,str,"Buying Ticket",JOptionPane.QUESTION_MESSAGE,correct);
-                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup);
+
+                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup,CinemaTicket_GUI.ticketPanel);
                         CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.ticketPanel);
                         CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.seatPanel);
                         CinemaTicket_GUI.mainPanel.revalidate();
@@ -193,5 +194,9 @@ public class TicketPanel extends JPanel {
         gbc.gridx = x;
         gbc.gridy = y;
         prevTicketPanel.add(comp,gbc);
+    }
+
+    public JComboBox<Movie> getSelectMovie() {
+        return selectMovie;
     }
 }
