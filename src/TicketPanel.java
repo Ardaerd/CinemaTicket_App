@@ -130,6 +130,10 @@ public class TicketPanel extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         addGBTicket(buyButton,0,4);
 
+        // Setting places for the component of the prevTicketPanel
+
+
+
         // Adding components to the button panel
         buttonPanel.add(displayPrev);
         buttonPanel.add(buyTicket);
@@ -176,6 +180,16 @@ public class TicketPanel extends JPanel {
                         CinemaTicket_GUI.mainPanel.revalidate();
                         CinemaTicket_GUI.mainPanel.repaint();
                     }
+                }
+            }
+        });
+
+        // Adding actionListener to the previous ticket button for displaying previous ticket
+        displayPrev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+
                 }
             }
         });
