@@ -16,6 +16,7 @@ public class CinemaTicket_GUI extends JPanel {
     private MovieTheaterGroup movieTheaterGroup;
     public static JPanel buttonPanel;
     public static NewCustomer_Panel newCustomer_Panel;
+    public static ExistingCustomer_Panel existingCustomer_panel;
 
     public CinemaTicket_GUI() {
         // Initializing components
@@ -24,6 +25,7 @@ public class CinemaTicket_GUI extends JPanel {
         newCustomer = new JButton("New Customer");
         existingCustomer = new JButton("Existing Customer");
         buttonPanel = new JPanel();
+        existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup);
         newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
         mainPanel = new JPanel();
         ticketPanel = new TicketPanel(movieTheaterGroup);
@@ -32,7 +34,7 @@ public class CinemaTicket_GUI extends JPanel {
         buttonPanel.add(newCustomer);
         buttonPanel.add(existingCustomer);
 
-        // Adding actionListener to the components of the buttonPanel
+        // Adding actionListener to the newCustomer panel
         newCustomer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,6 +42,20 @@ public class CinemaTicket_GUI extends JPanel {
                     newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
                     mainPanel.remove(buttonPanel);
                     mainPanel.add(newCustomer_Panel);
+                    mainPanel.repaint();
+                    mainPanel.revalidate();
+                }
+            }
+        });
+
+        // Adding actionListener to the existingCustomer button
+        existingCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup);
+                    mainPanel.remove(buttonPanel);
+                    mainPanel.add(existingCustomer_panel);
                     mainPanel.repaint();
                     mainPanel.revalidate();
                 }

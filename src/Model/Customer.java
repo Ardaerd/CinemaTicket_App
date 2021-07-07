@@ -38,6 +38,10 @@ public class Customer {
         return str;
     }
 
+    public String toString() {
+        return firstName.substring(0,1).toUpperCase() + firstName.substring(1) + " " + lastName.substring(0,1).toUpperCase() + lastName.substring(1).toUpperCase();
+    }
+
     public String getFirstName() {
         return firstName;
     }
