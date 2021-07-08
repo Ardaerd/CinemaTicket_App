@@ -16,8 +16,8 @@ public class Customer {
         prevTickets = new ArrayList<>();
     }
 
-    public void buyTicket (Branch branch, Movie movie, int adultCount, int childrenCount) {
-        Ticket ticket = new Ticket(movie,branch);
+    public void buyTicket(Branch branch, Movie movie, int adultCount, int childrenCount) {
+        Ticket ticket = new Ticket(movie,branch,this);
 
         ticket.setAdultCount(adultCount);
         ticket.setChildrenCount(childrenCount);

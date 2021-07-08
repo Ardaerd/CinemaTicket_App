@@ -83,9 +83,9 @@ public class NewCustomer_Panel extends JPanel {
 
                         } else {
                             customer = new Customer(firstName.getText(),lastName.getText());
-                            movieTheaterGroup.setCustomer(customer);
 
                             if (movieTheaterGroup.checkCustomer(customer)) {
+                                movieTheaterGroup.setCustomer(customer);
                                 movieTheaterGroup.addCustomer(customer);
                                 JOptionPane.showMessageDialog(null,firstName.getText().substring(0,1).toUpperCase() + firstName.getText().substring(1) + " " + lastName.getText().substring(0,1).toUpperCase() + lastName.getText().substring(1) + " is added!", "Customer",JOptionPane.INFORMATION_MESSAGE,addUser);
 

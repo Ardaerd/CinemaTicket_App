@@ -12,15 +12,18 @@ public class Ticket {
     private Branch branch;
     private double totalPrice;
     private boolean seat[][];
+    private Customer customer;
 
-    public Ticket(Movie movie,Branch branch) {
+    public Ticket(Movie movie,Branch branch,Customer customer) {
         this.branch = branch;
         this.movie = movie;
+        this.customer = customer;
         seat = new boolean[5][5];
     }
 
     public String toString() {
-        String str = "Model.Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
+        String str = "Customer: " + customer.getFirstName() + " " + customer.getLastName() + "\n" +
+                "Ticket for " + movie.getNameOfMovie() + " (" + movie.getGenre() + ")\n" +
                 adultCount + " adults and " + childrenCount + " children\n" +
                 "Total price is " + totalPrice + " TL\n";
 

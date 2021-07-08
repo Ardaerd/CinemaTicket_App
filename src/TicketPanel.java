@@ -186,7 +186,7 @@ public class TicketPanel extends JPanel {
                     } else if (((Integer) childCounter.getValue()) == 0 && ((Integer) adultCounter.getValue() == 0)) {
                         JOptionPane.showMessageDialog(null,"You have to increment person section!","Zero Ticket",JOptionPane.QUESTION_MESSAGE,wrong);
                     } else {
-                        customer = NewCustomer_Panel.customer;
+                        customer = movieTheaterGroup.getCustomer();
                         customer.buyTicket((Branch) selectBranch.getSelectedItem(),(Movie) selectMovie.getSelectedItem(),(Integer) adultCounter.getValue(), (Integer) childCounter.getValue());
                         String str = "The payment is successful!\n" +
                                 "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";

@@ -36,17 +36,6 @@ public class ExistingCustomer_Panel extends JPanel {
         selectCustomer.setPreferredSize(new Dimension(150,25));
         buyTicket.setPreferredSize(new Dimension(170,30));
 
-        // Adding ItemListener to the selectCustomer
-        selectCustomer.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    Customer existingCustomer = (Customer) e.getItem();
-                    movieTheaterGroup.setCustomer(existingCustomer);
-                }
-            }
-        });
-
         if (movieTheaterGroup.getListOfCustomer().size() < 1) {
             buyTicket.setPreferredSize(new Dimension(270,30));
             buyTicket.setText("Return The Customer Menu");
@@ -68,6 +57,9 @@ public class ExistingCustomer_Panel extends JPanel {
 
                     // If there is an existing customer
                     else {
+                        Customer existingCustomer = (Customer) selectCustomer.getSelectedItem();
+                        movieTheaterGroup.setCustomer(existingCustomer);
+
                         cinemaTicket_gui.setTicketPanel(new TicketPanel(movieTheaterGroup,cinemaTicket_gui));
 
                         CinemaTicket_GUI.mainPanel.remove(cinemaTicket_gui.getExistingCustomer_panel());
