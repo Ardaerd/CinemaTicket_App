@@ -10,25 +10,26 @@ public class CinemaTicket_GUI extends JPanel {
     private JButton newCustomer;
     private JButton existingCustomer;
     public static JPanel mainPanel;
-    public static SeatPanel seatPanel;
-    public static TicketPanel ticketPanel;
+    private SeatPanel seatPanel;
+    private ExistingCustomer_Panel existingCustomer_panel;
+    private TicketPanel ticketPanel;
     private JTabbedPane tabPanel;
     private MovieTheaterGroup movieTheaterGroup;
-    public static JPanel buttonPanel;
-    public static NewCustomer_Panel newCustomer_Panel;
-    public static ExistingCustomer_Panel existingCustomer_panel;
+    private JPanel buttonPanel;
+    private NewCustomer_Panel newCustomer_Panel;
 
     public CinemaTicket_GUI() {
+        CinemaTicket_GUI cinemaTicket_gui = this;
         // Initializing components
         tabPanel = new JTabbedPane();
         movieTheaterGroup = new MovieTheaterGroup("Cinemaximum");
         newCustomer = new JButton("New Customer");
         existingCustomer = new JButton("Existing Customer");
         buttonPanel = new JPanel();
-        existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup);
-        newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
+        existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup,cinemaTicket_gui);
+        newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup,cinemaTicket_gui);
         mainPanel = new JPanel();
-        ticketPanel = new TicketPanel(movieTheaterGroup);
+        ticketPanel = new TicketPanel(movieTheaterGroup,cinemaTicket_gui);
 
         // Adding components to the buttonPanel
         buttonPanel.add(newCustomer);
@@ -39,7 +40,7 @@ public class CinemaTicket_GUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
-                    newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup);
+                    newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup,cinemaTicket_gui);
                     mainPanel.remove(buttonPanel);
                     mainPanel.add(newCustomer_Panel);
                     mainPanel.repaint();
@@ -53,7 +54,7 @@ public class CinemaTicket_GUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() instanceof JButton) {
-                    existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup);
+                    existingCustomer_panel = new ExistingCustomer_Panel(movieTheaterGroup,cinemaTicket_gui);
                     mainPanel.remove(buttonPanel);
                     mainPanel.add(existingCustomer_panel);
                     mainPanel.repaint();
@@ -73,5 +74,49 @@ public class CinemaTicket_GUI extends JPanel {
 
         // Adding to the this panel
         add(tabPanel);
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public SeatPanel getSeatPanel() {
+        return seatPanel;
+    }
+
+    public ExistingCustomer_Panel getExistingCustomer_panel() {
+        return existingCustomer_panel;
+    }
+
+    public TicketPanel getTicketPanel() {
+        return ticketPanel;
+    }
+
+    public NewCustomer_Panel getNewCustomer_Panel() {
+        return newCustomer_Panel;
+    }
+
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    public void setSeatPanel(SeatPanel seatPanel) {
+        this.seatPanel = seatPanel;
+    }
+
+    public void setExistingCustomer_panel(ExistingCustomer_Panel existingCustomer_panel) {
+        this.existingCustomer_panel = existingCustomer_panel;
+    }
+
+    public void setTicketPanel(TicketPanel ticketPanel) {
+        this.ticketPanel = ticketPanel;
+    }
+
+    public void setNewCustomer_Panel(NewCustomer_Panel newCustomer_Panel) {
+        this.newCustomer_Panel = newCustomer_Panel;
+    }
+
+    public JPanel getButtonPanel() {
+        return buttonPanel;
     }
 }

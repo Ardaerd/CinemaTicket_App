@@ -22,7 +22,7 @@ public class SeatPanel extends JPanel {
     private ImageIcon selectedSeat;
     private boolean isClicked[][];
 
-    public SeatPanel(MovieTheaterGroup movieTheaterGroup) {
+    public SeatPanel(MovieTheaterGroup movieTheaterGroup,CinemaTicket_GUI cinemaTicket_gui) {
         // Initializing  the components
         wrong = new ImageIcon("src/Pic/wrong.png");
         correct = new ImageIcon("src/Pic/check.png");
@@ -132,8 +132,8 @@ public class SeatPanel extends JPanel {
 
                     if (count == numPeople) {
                         JOptionPane.showMessageDialog(null,"Choosing seats successfully completed!","Selecting Seats",JOptionPane.QUESTION_MESSAGE,correct);
-                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.seatPanel);
-                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.buttonPanel);
+                        CinemaTicket_GUI.mainPanel.remove(cinemaTicket_gui.getSeatPanel());
+                        CinemaTicket_GUI.mainPanel.add(cinemaTicket_gui.getButtonPanel());
                         CinemaTicket_GUI.mainPanel.repaint();
                         CinemaTicket_GUI.mainPanel.revalidate();
                     } else if (count > numPeople) {

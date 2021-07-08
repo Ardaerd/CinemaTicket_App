@@ -10,12 +10,11 @@ import java.awt.event.ItemListener;
 
 public class ExistingCustomer_Panel extends JPanel {
     private JComboBox<Customer> selectCustomer;
-    public static Customer customer;
     private JButton buyTicket;
     private GridBagConstraints gbc;
     private ImageIcon wrongUser;
 
-    public ExistingCustomer_Panel(MovieTheaterGroup movieTheaterGroup) {
+    public ExistingCustomer_Panel(MovieTheaterGroup movieTheaterGroup,CinemaTicket_GUI cinemaTicket_gui) {
         // Initializing the components
         selectCustomer = new JComboBox<>();
         buyTicket = new JButton("Buy Ticket");
@@ -43,7 +42,7 @@ public class ExistingCustomer_Panel extends JPanel {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     Customer existingCustomer = (Customer) e.getItem();
-                    customer = existingCustomer;
+                    movieTheaterGroup.setCustomer(existingCustomer);
                 }
             }
         });
@@ -61,18 +60,18 @@ public class ExistingCustomer_Panel extends JPanel {
                     if (movieTheaterGroup.getListOfCustomer().size() < 1) {
                         JOptionPane.showMessageDialog(null,"There is no existing customer", "Customer",JOptionPane.INFORMATION_MESSAGE,wrongUser);
 
-                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.existingCustomer_panel);
-                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.buttonPanel);
+                        CinemaTicket_GUI.mainPanel.remove(cinemaTicket_gui.getExistingCustomer_panel());
+                        CinemaTicket_GUI.mainPanel.add(cinemaTicket_gui.getButtonPanel());
                         CinemaTicket_GUI.mainPanel.repaint();
                         CinemaTicket_GUI.mainPanel.revalidate();
                     }
 
                     // If there is an existing customer
                     else {
-                        CinemaTicket_GUI.ticketPanel = new TicketPanel(movieTheaterGroup);
+                        cinemaTicket_gui.setTicketPanel(new TicketPanel(movieTheaterGroup,cinemaTicket_gui));
 
-                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.existingCustomer_panel);
-                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.ticketPanel);
+                        CinemaTicket_GUI.mainPanel.remove(cinemaTicket_gui.getExistingCustomer_panel());
+                        CinemaTicket_GUI.mainPanel.add(cinemaTicket_gui.getTicketPanel());
                         CinemaTicket_GUI.mainPanel.repaint();
                         CinemaTicket_GUI.mainPanel.revalidate();
                     }

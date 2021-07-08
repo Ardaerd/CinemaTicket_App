@@ -11,10 +11,10 @@ import java.awt.event.ItemListener;
 public class TicketPanel extends JPanel {
     private ImageIcon wrong;
     private ImageIcon correct;
+    private PrevTicket_Panel prevTicketPanel;
     private JPanel buttonPanel;
     private JPanel mainPanel;
     private JPanel ticketPanel;
-    private JPanel prevTicketPanel;
     private JButton buyTicket;
     private JButton displayPrev;
     private GridBagConstraints gbc;
@@ -27,20 +27,21 @@ public class TicketPanel extends JPanel {
     private JSpinner adultCounter;
     private JSpinner childCounter;
     private JButton buyButton;
-    private boolean buyTicketClicked;
     private boolean prevTicketClicked;
+    private boolean buyTicketClicked;
     private Customer customer;
+    private ExistingCustomer_Panel existingCustomer_panel;
 
-    public TicketPanel(MovieTheaterGroup movieTheaterGroup) {
+    public TicketPanel(MovieTheaterGroup movieTheaterGroup,CinemaTicket_GUI cinemaTicket_gui) {
         // Initializing the components
         wrong = new ImageIcon("src/Pic/wrong.png");
         correct = new ImageIcon("src/Pic/check.png");
-        buyTicketClicked = false;
         prevTicketClicked = false;
+        buyTicketClicked = false;
+        prevTicketPanel = new PrevTicket_Panel(movieTheaterGroup, existingCustomer_panel);
         buttonPanel = new JPanel();
         mainPanel = new JPanel();
         ticketPanel = new JPanel();
-        prevTicketPanel = new JPanel();
         buyTicket = new JButton("Buy Ticket");
         displayPrev = new JButton("Display Previous Ticket");
         buyButton = new JButton("Buy Ticket");
@@ -88,7 +89,6 @@ public class TicketPanel extends JPanel {
         setLayout(new BorderLayout());
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER,15,0));
         ticketPanel.setLayout(new GridBagLayout());
-        prevTicketPanel.setLayout(new GridBagLayout());
 
         // Setting places for the component of the ticketPanel
         gbc.gridheight = 1;
@@ -148,10 +148,28 @@ public class TicketPanel extends JPanel {
                         mainPanel.remove(prevTicketPanel);
                         prevTicketClicked = false;
                     }
+                    buyTicketClicked = true;
                     mainPanel.add(ticketPanel);
                     mainPanel.revalidate();
                     mainPanel.repaint();
-                    buyTicketClicked = true;
+                }
+            }
+        });
+
+        // Adding actionListener to the previous ticket button for displaying previous ticket
+        displayPrev.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() instanceof JButton) {
+                    // Adding panels to the mainPanel
+                    if (buyTicketClicked) {
+                        mainPanel.remove(ticketPanel);
+                        buyTicketClicked = false;
+                    }
+                    prevTicketClicked = true;
+                    mainPanel.add(prevTicketPanel);
+                    mainPanel.revalidate();
+                    mainPanel.repaint();
                 }
             }
         });
@@ -174,22 +192,12 @@ public class TicketPanel extends JPanel {
                                 "Ticket price is " + customer.getPrevTickets().get(customer.getPrevTickets().size()-1).getTotalPrice() + " TL";
                         JOptionPane.showMessageDialog(null,str,"Buying Ticket",JOptionPane.QUESTION_MESSAGE,correct);
 
-                        CinemaTicket_GUI.seatPanel = new SeatPanel(movieTheaterGroup);
-                        CinemaTicket_GUI.mainPanel.remove(CinemaTicket_GUI.ticketPanel);
-                        CinemaTicket_GUI.mainPanel.add(CinemaTicket_GUI.seatPanel);
+                        cinemaTicket_gui.setSeatPanel(new SeatPanel(movieTheaterGroup,cinemaTicket_gui));
+                        CinemaTicket_GUI.mainPanel.remove(cinemaTicket_gui.getTicketPanel());
+                        CinemaTicket_GUI.mainPanel.add(cinemaTicket_gui.getSeatPanel());
                         CinemaTicket_GUI.mainPanel.revalidate();
                         CinemaTicket_GUI.mainPanel.repaint();
                     }
-                }
-            }
-        });
-
-        // Adding actionListener to the previous ticket button for displaying previous ticket
-        displayPrev.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() instanceof JButton) {
-
                 }
             }
         });
@@ -203,12 +211,6 @@ public class TicketPanel extends JPanel {
         gbc.gridx = x;
         gbc.gridy = y;
         ticketPanel.add(comp,gbc);
-    }
-
-    public void addGBPrevTicket(Component comp, int x, int y) {
-        gbc.gridx = x;
-        gbc.gridy = y;
-        prevTicketPanel.add(comp,gbc);
     }
 
     public JComboBox<Movie> getSelectMovie() {

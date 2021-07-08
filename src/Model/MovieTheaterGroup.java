@@ -8,6 +8,7 @@ public class MovieTheaterGroup {
     private ArrayList<Branch> listOfBranch;
     private ArrayList<Customer> listOfCustomer;
     private boolean checkCustomer;
+    private Customer customer;
 
     public MovieTheaterGroup(String nameOfGroup) {
         this.nameOfGroup = nameOfGroup;
@@ -15,6 +16,7 @@ public class MovieTheaterGroup {
         listOfCustomer = new ArrayList<>();
         initBranches();
         initMovie();
+        customer = new Customer("dummy","customer");
     }
 
     public boolean checkCustomer(Customer customer) {
@@ -117,5 +119,13 @@ public class MovieTheaterGroup {
 
     public ArrayList<Customer> getListOfCustomer() {
         return listOfCustomer;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
