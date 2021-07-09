@@ -69,4 +69,8 @@ public class Ticket {
     public Branch getBranch() {
         return branch;
     }
+
+    public Customer getCustomer() {
+        return customer;
+    }
 }

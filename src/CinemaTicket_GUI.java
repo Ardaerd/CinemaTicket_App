@@ -17,6 +17,7 @@ public class CinemaTicket_GUI extends JPanel {
     private MovieTheaterGroup movieTheaterGroup;
     private JPanel buttonPanel;
     private NewCustomer_Panel newCustomer_Panel;
+    private CM_Panel CM;
 
     public CinemaTicket_GUI() {
         CinemaTicket_GUI cinemaTicket_gui = this;
@@ -30,6 +31,7 @@ public class CinemaTicket_GUI extends JPanel {
         newCustomer_Panel = new NewCustomer_Panel(movieTheaterGroup,cinemaTicket_gui);
         mainPanel = new JPanel();
         ticketPanel = new TicketPanel(movieTheaterGroup,cinemaTicket_gui);
+        CM = new CM_Panel(movieTheaterGroup);
 
         // Adding components to the buttonPanel
         buttonPanel.add(newCustomer);
@@ -68,6 +70,7 @@ public class CinemaTicket_GUI extends JPanel {
 
         // Adding tab for buying ticket and displaying Movie theater group information
         tabPanel.addTab("Ticket",mainPanel);
+        tabPanel.addTab("Cinemaximum",CM);
 
         // Adding components to the mainPanel
         mainPanel.add(buttonPanel);

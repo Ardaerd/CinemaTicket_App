@@ -7,7 +7,6 @@ public class MovieTheaterGroup {
     private String nameOfGroup;
     private ArrayList<Branch> listOfBranch;
     private ArrayList<Customer> listOfCustomer;
-    private boolean checkCustomer;
     private Customer customer;
 
     public MovieTheaterGroup(String nameOfGroup) {
@@ -91,7 +90,6 @@ public class MovieTheaterGroup {
     public Branch openBranch(String str) {
         Branch newBranch = new Branch(str);
         listOfBranch.add(newBranch);
-
 
         return newBranch;
     }
