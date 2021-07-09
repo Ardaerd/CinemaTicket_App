@@ -9,9 +9,11 @@ public class CM_Panel extends JPanel {
     private JButton displayTickets;
     private JButton displayCalculation;
     private DisplayTickets_Panel displayTickets_panel;
+    private CalculationPanel calculationPanel;
     private JPanel buttonPanel;
     private JPanel mainPanel;
     private boolean displayAllTicketsClicked;
+    private boolean displayCalculationClicked;
 
     public CM_Panel(MovieTheaterGroup movieTheaterGroup) {
         // Initializing the components
@@ -35,12 +37,33 @@ public class CM_Panel extends JPanel {
                 if (e.getSource() instanceof JButton) {
                     if (displayAllTicketsClicked)
                         mainPanel.remove(displayTickets_panel);
+                    else if (displayCalculationClicked) {
+                        mainPanel.remove(calculationPanel);
+                        displayCalculationClicked = false;
+                    }
                     displayAllTicketsClicked = true;
                     displayTickets_panel = new DisplayTickets_Panel(movieTheaterGroup);
                     mainPanel.add(displayTickets_panel);
                     mainPanel.repaint();
                     mainPanel.revalidate();
                 }
+            }
+        });
+
+        displayCalculation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (displayAllTicketsClicked) {
+                    mainPanel.remove(displayTickets_panel);
+                    displayAllTicketsClicked = false;
+                } else if (displayCalculationClicked) {
+                    mainPanel.remove(calculationPanel);
+                }
+                displayCalculationClicked = true;
+                calculationPanel = new CalculationPanel(movieTheaterGroup);
+                mainPanel.add(calculationPanel);
+                mainPanel.repaint();
+                mainPanel.revalidate();
             }
         });
 

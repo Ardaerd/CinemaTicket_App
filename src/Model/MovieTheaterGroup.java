@@ -42,18 +42,29 @@ public class MovieTheaterGroup {
         Movie movie5 = new Movie("Moana","Animation",listOfBranch.get(2));
     }
 
-    public void calculateBranchRevenue(Branch branch, Movie movie) {
+    public double calculateBranchRevenue(Branch branch) {
         double totalRevenue = 0.0;
         ArrayList<Ticket> ticketList = branch.getPrevTicket();
 
         for (Ticket ticket : ticketList) {
-            if (ticket.getMovie() == movie) {
+                totalRevenue += ticket.getTotalPrice();
+        }
+
+        System.out.println("Total revenue of " + branch.getNameOfBranch() + " from movie " +
+                " is " + totalRevenue + " TL");
+        return totalRevenue;
+    }
+
+    public double calculateTotalRevenue() {
+        double totalRevenue = 0.0;
+
+        for (Branch branch : listOfBranch) {
+            for (Ticket ticket : branch.getPrevTicket()) {
                 totalRevenue += ticket.getTotalPrice();
             }
         }
 
-        System.out.println("Total revenue of " + branch.getNameOfBranch() + " from movie " + movie.getNameOfMovie() +
-                " is " + totalRevenue + " TL");
+        return totalRevenue;
     }
 
     public void displayBranches4Movie(Movie movie) {

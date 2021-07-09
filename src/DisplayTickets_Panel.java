@@ -44,7 +44,7 @@ public class DisplayTickets_Panel extends JPanel {
                 String totalPrice = String.format("%s TL",ticket.getTotalPrice());
 
                 // String array for the information of ticket
-                String[] str = {nameOfCustomer,nameOfBranch,nameOfBranch,totalPrice};
+                String[] str = {nameOfCustomer,nameOfBranch,nameOfMovie,totalPrice};
 
                 // Add these information to the allTickets
                 tableModel.addRow(str);
